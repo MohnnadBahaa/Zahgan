@@ -36,11 +36,11 @@ class App extends Component {
       url: '/create',
       type: "GET",
       success: (data) => {
-       
+
         this.setState({
           items: data
         })
-        
+
       },
       error: (err) => {
         console.log('err', err);
@@ -54,21 +54,21 @@ class App extends Component {
     return (
 
 
-      <BrowserRouter>  
-      <div className="App">
-     
-    
-      <div>
-      
-     
-      
-      <Nav />
-      
-      <Switch>
-  <Route path='/HomeClass' render={()=>{
-    return (
-      
-      <HomeClass items={this.state.items} />
+      <BrowserRouter>
+        <div className="App">
+
+
+          <div>
+
+
+
+            <Nav />
+
+            <Switch>
+              <Route path='/HomeClass' render={()=>{
+                return (
+
+                  <HomeClass items={this.state.items} />
     )}}
   />
 
@@ -87,8 +87,8 @@ class App extends Component {
 
 </div>
       </BrowserRouter>
-    
-     
+
+
     );
   }
 }

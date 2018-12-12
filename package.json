@@ -7,13 +7,14 @@
   "test": "mocha",
   "client": "cd react-client && yarn start",
   "server": "nodemon server.js",
-  "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn react-client\"",
+  "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
   "start": "node server.js",
   "heroku-postbuild": "cd react-client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
  },
  "dependencies": {
   "bcrypt": "^3.0.2",
   "body-parser": "^1.18.3",
+  "concurrently": "^4.1.0",
   "connect": "^3.6.6",
   "express": "^4.15.0",
   "google-map-react": "^1.1.1",

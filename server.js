@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }))
-mongoose.connect('mongodb://zaid-1994:zaid-1994@ds119394.mlab.com:19394/zahgan')
+mongoose.connect('mongodb://Mbahaa:mm123456@ds129914.mlab.com:29914/blackcodeteam')
 
 mongoose.Promise = global.Promise;
 
@@ -24,29 +24,28 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 
 
-db.on('error', function () {
+db.on('error', function() {
   console.log('mongoose connection error');
 });
 
-db.once('open', function () {
+db.once('open', function() {
   console.log('mongoose connected successfully');
 });
 
 //var data=[{Name:'"https://wallpaperbrowse.com5/media/images/pexels-photo-248797.jpeg"' ,HomeWork:'y7ya'}]
 
 // get a list for all events from the db
-app.get('/create', function (req, res, next) {
-  Event.find({}).then(function (events) {
-    ;
+app.get('/create', function(req, res, next) {
+  Event.find({}).then(function(events) {;
     res.send(events)
   }).catch(next)
 });
 
 
 //add new event to the db
-app.post('/create', function (req, res, next) {
-console.log("hi y7ya")
-  Event.create(req.body.obj).then(function (event) {
+app.post('/create', function(req, res, next) {
+  console.log("hi y7ya")
+  Event.create(req.body.obj).then(function(event) {
     res.send(event)
   }).catch(next)
 });
@@ -54,15 +53,15 @@ console.log("hi y7ya")
 
 
 //update a event in the database
-app.put('/create/:id', function (req, res, next) {
+app.put('/create/:id', function(req, res, next) {
   console.log(req.body)
   Event.findByIdAndUpdate({
     _id: req.params.id
-  }, req.body).then(function () {
+  }, req.body).then(function() {
     Event.findOne({
       _id: req.params.id
-    }).then(function (event) {
-      console.log('eeee',event)
+    }).then(function(event) {
+      console.log('eeee', event)
       res.send(event);
 
     })
@@ -71,18 +70,18 @@ app.put('/create/:id', function (req, res, next) {
 
 
 //delete a event in  the database
-app.delete('/create/:id', function (req, res, next) {
+app.delete('/create/:id', function(req, res, next) {
 
   Event.findByIdAndRemove({
     _id: req.params.id
-  }).then(function (event) {
+  }).then(function(event) {
     res.send(event)
 
   })
 });
 
 //error handling middleware
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   // console.log(err);
   res.status(400).send({
     error: err.message
@@ -95,19 +94,21 @@ if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'react-client/build')));
   // Handle React routing, return all requests to React app
-  app.get('*', function (req, res) {
+  app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'react-client/build', 'index.html'));
   });
 }
 
-app.listen(process.env.PORT || 4000, function () {
+app.listen(process.env.PORT || 4000, function() {
   console.log('listening on port 4000!');
 });
 
 // Signup User
 app.post('/account/signup', (req, res, next) => {
   // console.log(req.body);
-  const { body } = req;
+  const {
+    body
+  } = req;
   const {
     firstName,
     lastName,
@@ -188,7 +189,9 @@ app.post('/account/signup', (req, res, next) => {
 
 // Signin User
 app.post('/account/signin', (req, res, next) => {
-  const { body } = req;
+  const {
+    body
+  } = req;
   const {
     password
   } = body;
@@ -258,8 +261,12 @@ app.post('/account/signin', (req, res, next) => {
 // Verify User
 app.get('/account/verify', (req, res, next) => {
   // Get the token
-  const { query } = req;
-  const { token } = query;
+  const {
+    query
+  } = req;
+  const {
+    token
+  } = query;
   // ?token = test
 
   // Verify the token is one of a kind and is not deleted
@@ -291,56 +298,64 @@ app.get('/account/verify', (req, res, next) => {
 
 // User Logout
 app.post('/account/logout', (req, res, next) => {
-		// Get the token
-    const { body } = req;
-    const { headers } = req;
-		const { token } = headers;
-		// ?token = test
+  // Get the token
+  const {
+    body
+  } = req;
+  const {
+    headers
+  } = req;
+  const {
+    token
+  } = headers;
+  // ?token = test
 
-		// Verify the token is one of a kind and is not deleted
+  // Verify the token is one of a kind and is not deleted
 
-		UserSession.findOneAndUpdate({
-			userId: token,
-			isDeleted: false
-		}, {
-			$set: {
-				isDeleted: true
-			}
-		}, null, (err, sessions) => {
-			if (err) {
-				return res.send({
-					success: false,
-					message: 'Error: server error'
-				});
-			}
-
-			return res.send({
-				success: true,
-				message: 'Good bye! Please come again!'
-			})
-
-		})
-  });
-
-  //Get firstName of User
-  app.get('/getSpecificUser', function(req, res, next) {
-    var firstName = req.query.name;
-    // console.log('currency Name:', req.query)
-    User.getSpecificCurrency(name, (err, result) => {
-      let response = result.map(val => {
-        return {
-          firstName: val.firstName
-        };
+  UserSession.findOneAndUpdate({
+    userId: token,
+    isDeleted: false
+  }, {
+    $set: {
+      isDeleted: true
+    }
+  }, null, (err, sessions) => {
+    if (err) {
+      return res.send({
+        success: false,
+        message: 'Error: server error'
       });
-      res.send(response);
+    }
+
+    return res.send({
+      success: true,
+      message: 'Good bye! Please come again!'
+    })
+
+  })
+});
+
+//Get firstName of User
+app.get('/getSpecificUser', function(req, res, next) {
+  var firstName = req.query.name;
+  // console.log('currency Name:', req.query)
+  User.getSpecificCurrency(name, (err, result) => {
+    let response = result.map(val => {
+      return {
+        firstName: val.firstName
+      };
     });
+    res.send(response);
   });
+});
 
 
 // Signup Creator
 app.post('/creator/signup', (req, res, next) => {
   // console.log(req.body);
-  const { body } = req;
+  const {
+    body
+  } = req;
   const {
     password
   } = body;
@@ -404,9 +419,11 @@ app.post('/creator/signup', (req, res, next) => {
 });
 
 
-  // Signin Creator
+// Signin Creator
 app.post('/creator/signin', (req, res, next) => {
-  const { body } = req;
+  const {
+    body
+  } = req;
   const {
     password
   } = body;
@@ -446,7 +463,7 @@ app.post('/creator/signin', (req, res, next) => {
     }
 
     const creator = creators[0];
-    if(!creator.validPassword(password)) {
+    if (!creator.validPassword(password)) {
       return res.send({
         success: false,
         message: 'Error: Invalid Password.'
@@ -474,66 +491,74 @@ app.post('/creator/signin', (req, res, next) => {
 
 // Verify Creator
 app.get('/account/verify', (req, res, next) => {
-		// Get the token
-		const { query } = req;
-		const { token } = query;
-		// ?token = test
+  // Get the token
+  const {
+    query
+  } = req;
+  const {
+    token
+  } = query;
+  // ?token = test
 
-		// Verify the token is one of a kind and is not deleted
+  // Verify the token is one of a kind and is not deleted
 
-		CreatorSession.find({
-			_id: token,
-			isDeleted: false
-		}, (err, sessions) => {
-			if (err) {
-				return res.send({
-					success: false,
-					message: 'Error: server error'
-				});
-			}
+  CreatorSession.find({
+    _id: token,
+    isDeleted: false
+  }, (err, sessions) => {
+    if (err) {
+      return res.send({
+        success: false,
+        message: 'Error: server error'
+      });
+    }
 
-			if (sessions.length != 1) {
-				return res.send({
-					success: false,
-					message: 'Error: Invalid'
-				});
-			} else {
-				return res.send({
-					success: true,
-					message: 'Good'
-				})
-			}
-		})
-  });
-  
-  // Creator Logout
+    if (sessions.length != 1) {
+      return res.send({
+        success: false,
+        message: 'Error: Invalid'
+      });
+    } else {
+      return res.send({
+        success: true,
+        message: 'Good'
+      })
+    }
+  })
+});
+
+// Creator Logout
 app.get('/account/logout', (req, res, next) => {
-		// Get the token
-		const { query } = req;
-		const { token } = query;
-		// ?token = test
+  // Get the token
+  const {
+    query
+  } = req;
+  const {
+    token
+  } = query;
+  // ?token = test
 
-		// Verify the token is one of a kind and is not deleted
+  // Verify the token is one of a kind and is not deleted
 
-		CreatorSession.findOneAndUpdate({
-			_id: token,
-			isDeleted: false
-		}, {
-			$set: {
-				isDeleted:true
-			}
-		}, null, (err, sessions) => {
-			if (err) {
-				return res.send({
-					success: false,
-					message: 'Error: server error'
-				});
-			}
+  CreatorSession.findOneAndUpdate({
+    _id: token,
+    isDeleted: false
+  }, {
+    $set: {
+      isDeleted: true
+    }
+  }, null, (err, sessions) => {
+    if (err) {
+      return res.send({
+        success: false,
+        message: 'Error: server error'
+      });
+    }
 
-			return res.send({
-				success: true,
-				message: 'Good'
-			})
+    return res.send({
+      success: true,
+      message: 'Good'
+    })
 
-		})
-  });
+  })
+});
