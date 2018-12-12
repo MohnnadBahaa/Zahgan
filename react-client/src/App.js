@@ -16,6 +16,9 @@ import Reserved from './components/Creator/Reserved';
 import Footer from './components/Footer';
 import location from './components/about/pages/location';
 import vision from './components/about/pages/vision';
+import ContactUs from './components/ContactUs/ContactUs';
+import AdminApproval from './components/admin/adminapproval';
+
 
 
 class App extends Component {
@@ -54,21 +57,22 @@ class App extends Component {
     return (
 
 
+
       <BrowserRouter>
-        <div className="App">
+      <div className="App">
 
 
-          <div>
+      <div>
 
 
 
-            <Nav />
+      <Nav />
 
-            <Switch>
-              <Route path='/HomeClass' render={()=>{
-                return (
+      <Switch>
+  <Route exact path='/' render={()=>{
+    return (
 
-                  <HomeClass items={this.state.items} />
+      <HomeClass items={this.state.items} />
     )}}
   />
 
@@ -78,10 +82,13 @@ class App extends Component {
 <Route path='/signin' component={Signin} />
 <Route path='/location' component={location}/>
 <Route path='/vision' component={vision}/>
-
 <Route path='/Eventcreatshow' component={Eventcreatshow}/>
 <Route path='/Eventsets' component={Eventsets}/>
 <Route path='/Reserved' component={Reserved}/>
+<Route path='/ContactUs' component={ContactUs}/>
+<Route path='/adminapproval' component={AdminApproval}/>
+
+
 </Switch>
 </div>
 

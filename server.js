@@ -4,7 +4,6 @@ var Event = require('./database-mongo');
 var connect = require('connect');
 const path = require('path');
 const mongoose = require('mongoose');
-
 const User = require('./database-mongo/User');
 const UserSession = require('./database-mongo/UserSession');
 const Creator = require('./database-mongo/Creator');
@@ -15,8 +14,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }))
-mongoose.connect('mongodb://Mbahaa:mm123456@ds129914.mlab.com:29914/blackcodeteam')
 
+
+mongoose.connect('mongodb://ozil:ozil123@ds131814.mlab.com:31814/ozil')
 mongoose.Promise = global.Promise;
 
 
@@ -42,10 +42,21 @@ app.get('/create', function(req, res, next) {
 });
 
 
+// feedback
+app.post('/contactus', function (req, res, next) {
+console.log(9999)
+
+});
+
+app.post('/adminapproval', function (req, res, next) {
+console.log(1594)
+
+});
+
 //add new event to the db
-app.post('/create', function(req, res, next) {
-  console.log("hi y7ya")
-  Event.create(req.body.obj).then(function(event) {
+app.post('/create', function (req, res, next) {
+
+  Event.create(req.body.obj).then(function (event) {
     res.send(event)
   }).catch(next)
 });
