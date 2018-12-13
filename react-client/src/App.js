@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Nav from './components/Home/Nav'
-import {BrowserRouter ,Route ,Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import HomeClass from './components/Home/HomeClass'
 import Create from './components/Creator/Create'
 import $ from 'jquery';
@@ -18,8 +18,6 @@ import vision from './components/about/pages/vision';
 import Myprofile from './components/myprofile/myprofile';
 import ContactUs from './components/ContactUs/ContactUs';
 import AdminApproval from './components/admin/adminapproval';
-
-
 
 class App extends Component {
 
@@ -42,10 +40,7 @@ class App extends Component {
 
         console.log(data)
 
-
-        this.setState({
-          items: data
-        })
+        this.setState({items: data})
 
       },
       error: (err) => {
@@ -54,60 +49,40 @@ class App extends Component {
     });
   }
 
-
-
   render() {
-    return (
-
-
-
-      <BrowserRouter>
+    return (<BrowserRouter>
       <div className="App">
 
+        <div>
 
-      <div>
+          <Nav/>
 
+          <Switch>
+            <Route exact="exact" path='/' render={() => {
+                return (<HomeClass items={this.state.items}/>)
+              }}/>
+            <Route path='/homeClass' render={() => {
+                return (<HomeClass items={this.state.items}/>)
+              }}/>
+            <Route path='/Myprofile' component={Myprofile}/>
+            <Route path='/SignInCreator' component={SignInCreator}/>
+            <Route path='/Creator' component={Create}/>
+            <Route path='/signup' component={Signup}/>
+            <Route path='/signin' component={Signin}/>
+            <Route path='/location' component={location}/>
+            <Route path='/vision' component={vision}/>
+            <Route path='/Eventcreatshow' component={Eventcreatshow}/>
+            <Route path='/Eventsets' component={Eventsets}/>
+            <Route path='/Reserved' component={Reserved}/>
+            <Route path='/ContactUs' component={ContactUs}/>
+            <Route path='/adminapproval' component={AdminApproval}/>
 
+          </Switch>
 
-      <Nav />
+        </div>
 
-      <Switch>
-  <Route exact path='/' render={()=>{
-    return (
-
-      <HomeClass items={this.state.items} />
-    )}}
-  />
-  <Route  path='/homeClass' render={()=>{
-    return (
-
-      <HomeClass items={this.state.items} />
-    )}}
-  />
-<Route path='/Myprofile' component={Myprofile} />
-<Route path='/SignInCreator' component={SignInCreator} />
-<Route path='/Creator' component={Create} />
-<Route path='/signup' component={Signup} />
-<Route path='/signin' component={Signin} />
-<Route path='/location' component={location}/>
-<Route path='/vision' component={vision}/>
-<Route path='/Eventcreatshow' component={Eventcreatshow}/>
-<Route path='/Eventsets' component={Eventsets}/>
-<Route path='/Reserved' component={Reserved}/>
-<Route path='/ContactUs' component={ContactUs}/>
-<Route path='/adminapproval' component={AdminApproval}/>
-
-
-
-</Switch>
-
-</div>
-
-</div>
-      </BrowserRouter>
-
-
-    );
+      </div>
+    </BrowserRouter>);
   }
 }
 

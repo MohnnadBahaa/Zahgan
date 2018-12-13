@@ -34,38 +34,71 @@ db.once('open', function() {
 //var data=[{Name:'"https://wallpaperbrowse.com5/media/images/pexels-photo-248797.jpeg"' ,HomeWork:'y7ya'}]
 
 //test
-app.get('/test', function (req, res) {
-    console.log(req.token)
-    console.log(req)
+app.get('/test', function(req, res) {
+  console.log(req.token)
+  console.log(req)
 });
 
 
 
 // get a list for all events from the db
 
-app.get('/create', function (req, res, next) {
-  Event.find({approve:1}).then(function (events) {
+app.get('/create', function(req, res, next) {
+  Event.find({
+    approve: 1
+  }).then(function(events) {
 
     res.send(events)
   }).catch(next)
 });
 
+app.get('/eventpendding', function(req, res, next) {
+  Event.find({
+    approve: 0
+  }).then(function(events) {
+    res.send(events)
+  }).catch(next)
+});
 
-// feedback
-app.post('/contactus', function (req, res, next) {
-console.log(9999)
+//update  findOneAndUpdate({ _id: id }, ...)
+app.post('/eventaccept', function(req, res, next) {
+  console.log('eeeeeeeeeeeee',req.body)
+  if(req.body.obj.action==1){
+
+    Event.findOneAndUpdate({
+      _id: req.body.obj.id
+    },{approve:1}).then(function(events) {
+      res.send(events)
+    }).catch(next)
+
+  }else{
+
+    Event.findOneAndUpdate({
+      _id: req.body.obj.id
+    },{approve:2}).then(function(events) {
+      res.send(events)
+    }).catch(next)
+
+  }
 
 });
 
-app.post('/adminapproval', function (req, res, next) {
-console.log(1594)
+
+// feedback
+app.post('/contactus', function(req, res, next) {
+  console.log(9999)
+
+});
+
+app.post('/adminapproval', function(req, res, next) {
+  console.log(1594)
 
 });
 
 //add new event to the db
-app.post('/create', function (req, res, next) {
-console.log(req.body)
-  Event.create(req.body.obj).then(function (event) {
+app.post('/create', function(req, res, next) {
+  console.log(req.body)
+  Event.create(req.body.obj).then(function(event) {
     res.send(event)
   }).catch(next)
 });
